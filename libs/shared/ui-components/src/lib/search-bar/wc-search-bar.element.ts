@@ -3,7 +3,7 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
-      'wc-search-bar': { namelist: string };
+      'wc-search-bar': { namelist: string[] };
     }
   }
 }
@@ -28,14 +28,14 @@ export class SearchBarElement extends HTMLElement {
     myInput.setAttribute('id', 'myInputField');
     myInput.setAttribute('list', 'customers');
 
-    document.getElementsByTagName('wc-search-bar')[0].appendChild(myInput);
+    document.getElementsByTagName('body')[0].appendChild(myInput);
     document.getElementById('myInputField')!.style[<any>'background-color'] =
       'cyan';
 
     const dataList = document.createElement('datalist');
     dataList.setAttribute('id', 'customers');
 
-    document.getElementsByTagName('wc-search-bar')[0].appendChild(dataList);
+    document.getElementsByTagName('body')[0].appendChild(dataList);
 
     for (const customerName of myData) {
       const el = document.createElement('option');

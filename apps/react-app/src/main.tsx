@@ -9,3 +9,17 @@ ReactDOM.render(
   </StrictMode>,
   document.getElementById('root')
 );
+
+
+// console.log(document.getElementsByTagName('wc-search-bar'))
+
+// const searchBar = document.getElementsByTagName('wc-search-bar')
+
+
+// searchBar.addEventListener(
+//   'onBlurEvent',
+//   (evt: any) => {
+//     console.log(evt);
+//     this.items.push(evt.detail);
+//   }
+// );
