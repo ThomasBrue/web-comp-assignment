@@ -1,49 +1,49 @@
-export class MyCounter extends HTMLElement {
-  shadow: any;
-  //   count = 0;
+// export class MyCounter extends HTMLElement {
+//   shadow: any;
+//   //   count = 0;
 
-  constructor() {
-    super();
-    this.shadow = this.attachShadow({ mode: 'open' });
-  }
+//   constructor() {
+//     super();
+//     this.shadow = this.attachShadow({ mode: 'open' });
+//   }
 
-  get count() {
-    return this.getAttribute('count');
-  }
+//   get count() {
+//     return this.getAttribute('count');
+//   }
 
-  set count(newVal: any) {
-    this.setAttribute('count', newVal);
-  }
+//   set count(newVal: any) {
+//     this.setAttribute('count', newVal);
+//   }
 
-  static get observedAttributes() {
-    return ['count'];
-  }
+//   static get observedAttributes() {
+//     return ['count'];
+//   }
 
-  attributeChangedCallback(prop: string, oldVal: any, newVal: any) {
-    if (prop === 'count') {
-      this.render();
-      const btn = this.shadow.querySelector('#btn');
-      btn.addEventListener('click', this.inc.bind(this));
-    }
-  }
+//   attributeChangedCallback(prop: string, oldVal: any, newVal: any) {
+//     if (prop === 'count') {
+//       this.render();
+//       const btn = this.shadow.querySelector('#btn');
+//       btn.addEventListener('click', this.inc.bind(this));
+//     }
+//   }
 
-  inc() {
-    this.count++;
-  }
+//   inc() {
+//     this.count++;
+//   }
 
-  connectedCallback() {
-    this.render();
-    const btn = this.shadow.querySelector('#btn');
-    btn.addEventListener('click', this.inc.bind(this));
-  }
+//   connectedCallback() {
+//     this.render();
+//     const btn = this.shadow.querySelector('#btn');
+//     btn.addEventListener('click', this.inc.bind(this));
+//   }
 
-  render() {
-    this.shadow.innerHTML = `
-    <h1>Counter</h1>
-    ${this.count}
-    <button id="btn">Increment</button>
-    `;
-  }
-}
+//   render() {
+//     this.shadow.innerHTML = `
+//     <h1>Counter</h1>
+//     ${this.count}
+//     <button id="btn">Increment</button>
+//     `;
+//   }
+// }
 
-customElements.define('my-counter', MyCounter);
+// customElements.define('my-counter', MyCounter);

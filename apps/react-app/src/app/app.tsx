@@ -1,4 +1,4 @@
-import '@web-comp-app/shared/ui-components';
+/* import '@web-comp-app/shared/ui-components';
 
 import { useState } from 'react';
 
@@ -15,3 +15,4 @@ export function App() {
 }
 
 export default App;
+ */

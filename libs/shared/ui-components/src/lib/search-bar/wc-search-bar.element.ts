@@ -1,26 +1,21 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-// create type for React app
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
-      'wc-counter-value': { count: number };
+      'wc-search-bar': { namelist: string };
     }
   }
 }
 
 export class SearchBarElement extends HTMLElement {
   public static get observedAttributes() {
-    return ['count'];
+    return ['namelist'];
   }
 
-  inputValue = '';
-
-  attributeChangedCallback(name: any, oldValue: any, newValue: string[]) {
-    this.makeDataList(['James', 'Lisa', 'Sam', 'Jack']);
-    // this.makeDataList(newValue);
-
-    console.log('newValue:: ', newValue);
+  attributeChangedCallback(name: any, oldValue: any, newValue: string) {
+    const nameList: string[] = newValue.split(',');
+    this.makeDataList(nameList);
   }
 
   connectedCallback() {
@@ -64,6 +59,6 @@ export class SearchBarElement extends HTMLElement {
     };
   }
 }
-// define element if it doesn't exist
+
 customElements.get('wc-search-bar') ||
   customElements.define('wc-search-bar', SearchBarElement);
