@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 // create type for React app
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -13,32 +14,54 @@ export class SearchBarElement extends HTMLElement {
     return ['count'];
   }
 
-  attributeChangedCallback(name: any, oldValue: any, newValue: any) {
-    const count = this.querySelector('#count');
+  inputValue = '';
 
-    if (count) {
-      count!.textContent = newValue;
-    }
+  attributeChangedCallback(name: any, oldValue: any, newValue: string[]) {
+    this.makeDataList(['James', 'Lisa', 'Sam', 'Jack']);
+    // this.makeDataList(newValue);
+
+    console.log('newValue:: ', newValue);
   }
 
   connectedCallback() {
-    // this.setAttribute('count', '7');
-    this.innerHTML = `
-       <h3>NEW_COMPONENT: Counter value is <span id="count">${this.getAttribute(
-         'count'
-       )}</span></h3>
-       
-       
-       <input list="browsers" name="browser" id="browser">
-       <datalist id="browsers">
-         <option value="Edge">
-         <option value="Firefox">
-         <option value="Chrome">
-         <option value="Opera">
-         <option value="Safari">
-       </datalist>
+    console.log('connectedCallback_Lifecycle_Hook');
+  }
 
-       `;
+  makeDataList(myData: string[]) {
+    const myInput = document.createElement('input');
+
+    myInput.setAttribute('id', 'myInputField');
+    myInput.setAttribute('list', 'customers');
+
+    document.getElementsByTagName('wc-search-bar')[0].appendChild(myInput);
+    document.getElementById('myInputField')!.style[<any>'background-color'] =
+      'cyan';
+
+    const dataList = document.createElement('datalist');
+    dataList.setAttribute('id', 'customers');
+
+    document.getElementsByTagName('wc-search-bar')[0].appendChild(dataList);
+
+    for (const customerName of myData) {
+      const el = document.createElement('option');
+      el.setAttribute('value', customerName);
+      document.getElementById('customers')?.appendChild(el);
+    }
+
+    myInput.onblur = (evt) => {
+      console.log(document.getElementById('myInputField'));
+
+      const value = (
+        document.getElementById('myInputField') as HTMLInputElement
+      ).value;
+      console.log('OnBlur_Event', value);
+
+      this.dispatchEvent(
+        new CustomEvent('onBlurEvent', {
+          detail: value,
+        })
+      );
+    };
   }
 }
 // define element if it doesn't exist

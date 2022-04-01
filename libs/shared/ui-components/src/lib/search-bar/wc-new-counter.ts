@@ -22,11 +22,19 @@ export class MyCounter extends HTMLElement {
   attributeChangedCallback(prop: string, oldVal: any, newVal: any) {
     if (prop === 'count') {
       this.render();
+      const btn = this.shadow.querySelector('#btn');
+      btn.addEventListener('click', this.inc.bind(this));
     }
+  }
+
+  inc() {
+    this.count++;
   }
 
   connectedCallback() {
     this.render();
+    const btn = this.shadow.querySelector('#btn');
+    btn.addEventListener('click', this.inc.bind(this));
   }
 
   render() {
