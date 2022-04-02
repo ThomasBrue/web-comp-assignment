@@ -5,9 +5,9 @@ import '@web-comp-app/shared/ui-components';
   selector: 'web-comp-app-root',
   template: `
     <h1>Angular App</h1>
-    <div style="border: 2px solid green;">
-      <wc-search-bar #searchBarId [attr.namelist]="nameList"></wc-search-bar>
-    </div>
+
+    <wc-search-bar #searchBarId [attr.namelist]="nameList"></wc-search-bar>
+
     <div *ngFor="let item of items">
       <div>{{ item }}</div>
     </div>
@@ -18,8 +18,6 @@ export class AppComponent implements AfterViewInit {
     'Sandy',
     'Alfred',
     'Maximilian',
-    'Tadeus',
-    'Spongebob',
     'James',
     'Lisa',
     'Sam',

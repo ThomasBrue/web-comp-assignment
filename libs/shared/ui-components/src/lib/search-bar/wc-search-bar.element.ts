@@ -8,46 +8,39 @@ declare global {
   }
 }
 
+const template = document.createElement('template');
+template.setAttribute('id', 'template');
+template.innerHTML = `
+<div id="myroot"><div>
+`;
+
 export class SearchBarElement extends HTMLElement {
+  shadow: any;
+
   public static get observedAttributes() {
     return ['namelist'];
   }
 
-  attributeChangedCallback(name: any, oldValue: any, newValue: string) {
-    const nameList: string[] = newValue.split(',');
-    this.makeDataList(nameList);
-  }
+  constructor() {
+    super();
 
-  connectedCallback() {
-    console.log('connectedCallback_Lifecycle_Hook');
-  }
+    this.shadow = this.attachShadow({ mode: 'open' });
+    this.shadowRoot?.appendChild(template.content.cloneNode(true));
 
-  makeDataList(myData: string[]) {
     const myInput = document.createElement('input');
-
     myInput.setAttribute('id', 'myInputField');
     myInput.setAttribute('list', 'customers');
-
-    document.getElementsByTagName('body')[0].appendChild(myInput);
-    document.getElementById('myInputField')!.style[<any>'background-color'] =
-      'cyan';
+    this.shadow.appendChild(myInput);
 
     const dataList = document.createElement('datalist');
     dataList.setAttribute('id', 'customers');
-
-    document.getElementsByTagName('body')[0].appendChild(dataList);
-
-    for (const customerName of myData) {
-      const el = document.createElement('option');
-      el.setAttribute('value', customerName);
-      document.getElementById('customers')?.appendChild(el);
-    }
+    this.shadow.appendChild(dataList);
 
     myInput.onblur = (evt) => {
-      console.log(document.getElementById('myInputField'));
+      console.log(this.shadow.getElementById('myInputField'));
 
       const value = (
-        document.getElementById('myInputField') as HTMLInputElement
+        this.shadow.getElementById('myInputField') as HTMLInputElement
       ).value;
       console.log('OnBlur_Event', value);
 
@@ -57,6 +50,20 @@ export class SearchBarElement extends HTMLElement {
         })
       );
     };
+  }
+
+  attributeChangedCallback(name: any, oldValue: any, newValue: string) {
+    const nameList: string[] = newValue.split(',');
+
+    for (const customerName of nameList) {
+      const el = document.createElement('option');
+      el.setAttribute('value', customerName);
+      this.shadow.getElementById('customers')?.appendChild(el);
+    }
+  }
+
+  connectedCallback() {
+    console.log('connectedCallback_Lifecycle_Hook');
   }
 }
 

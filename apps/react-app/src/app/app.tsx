@@ -1,6 +1,7 @@
 import '@web-comp-app/shared/ui-components';
 
 import { useState } from 'react';
+import { render } from 'react-dom';
 
 export function App() {
   const [count, setCount] = useState(0);
@@ -9,8 +10,6 @@ export function App() {
     'Sandy',
     'Alfred',
     'Maximilian',
-    'Tadeus',
-    'Spongebob',
     'James',
     'Lisa',
     'Sam',
@@ -28,19 +27,22 @@ export function App() {
     console.log("wc-search-bar::: ", document.getElementsByTagName('wc-search-bar'));
   },1000);
 
-  return (
-    <div>
-      <h1>React App</h1>
-      <wc-search-bar   namelist={nameList}></wc-search-bar>
-    </div>
-  );
 
 
-  
-  
+
+    return (
+      <div>
+        <h1>React App</h1>
+        <wc-search-bar namelist={nameList}></wc-search-bar>
+      </div>
+    );
 }
 
+
+
 export default App;
+
+
 
 
 // <wc-search-bar #searchBarId [attr.namelist]="nameList"></wc-search-bar>
